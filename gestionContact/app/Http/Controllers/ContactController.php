@@ -17,10 +17,10 @@ class ContactController extends Controller
     public function create(){
         
         return view('contact.create');
-        }
+    }
         //enregistrer un new contact
-        public function store(Request $request){
-            $request->validate([
+    public function store(Request $request){
+        $request->validate([
                 'nomComplet'=>'required',
                 'Email'=> 'required',
                 'telephone' => 'required',
@@ -31,12 +31,9 @@ class ContactController extends Controller
 
             return redirect('/')->with('success','Étudiant ajouté avec succès');
             }
-            public function show($id)
-            {
-
+        public function show($id){
                 $contact = Contact::findOrFail($id);
                 return view('contact.show', compact('contact'));
-
             }
 
             //edition de contact

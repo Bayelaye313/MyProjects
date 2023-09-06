@@ -9,8 +9,6 @@
             </div>
     </div>
 
-
-
     @if ($message = Session::get('success'))
 
         <div class="alert alert-success">
@@ -19,12 +17,8 @@
 
     @endif
 
-
-
     <table class="table table-bordered">
-
         <tr>
-
             <th>No</th>
             <th>Nom Complet</th>
             <th>Email</th>
