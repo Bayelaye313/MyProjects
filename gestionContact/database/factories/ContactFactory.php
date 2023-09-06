@@ -3,10 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Contact;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Contact>
- */
 class ContactFactory extends Factory
 {
     /**
@@ -17,7 +15,10 @@ class ContactFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nomComplet' => $this->faker->lastName . ' ' . $this->faker->firstName,
+            'Email' => $this->faker->unique()->safeEmail,
+            'telephone' => $this->faker->phoneNumber,
+            'Salaire' => $this->faker->randomFloat(2, 1000, 5000)
         ];
     }
 }

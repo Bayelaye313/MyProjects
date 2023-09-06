@@ -9,7 +9,7 @@ class ContactController extends Controller
 {
     //affiche liste contacts
     public function index(){
-    $contacts = Contact::all();
+    $contacts = Contact::orderBy("nomComplet", "asc")->paginate(5);
     return view('contact.index', compact('contacts'));
     }
 
@@ -22,14 +22,14 @@ class ContactController extends Controller
         public function store(Request $request){
             $request->validate([
                 'nomComplet'=>'required',
-                'email'=> 'required',
+                'Email'=> 'required',
                 'telephone' => 'required',
-                'salaire' => 'required'
+                'Salaire' => 'required'
             ]);
 
             Contact::create($request->all());
 
-            return back()->with('success','Étudiant ajouté avec succès');
+            return redirect('/')->with('success','Étudiant ajouté avec succès');
             }
             public function show($id)
             {
@@ -55,15 +55,15 @@ class ContactController extends Controller
             $request->validate([
 
                 'nomComplet'=>'required',
-                'email'=> 'required',
+                'Email'=> 'required',
                 'telephone' => 'required',
-                'salaire' => 'required']);
+                'Salaire' => 'required']);
             $contact = Contact::findOrFail($id);
             $contact->update([
                 "nomComplet" => $request->input('nomComplet'),
-                     "email" => $request->input('email'),
+                     "Email" => $request->input('Email'),
                  'telephone' => $request->input('telephone'),
-                   'salaire' => $request->input('salaire')]);
+                   'Salaire' => $request->input('Salaire')]);
 
             return redirect('/')->with('success', 'contact Modifié avec succès');
         }
