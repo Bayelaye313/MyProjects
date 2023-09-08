@@ -27,7 +27,7 @@
                 <td>{{$etudiant->prenom}}</td>
                 <td>{{$etudiant->classe->libelle}}</td>
                 <td class="d-flex"> 
-                    <a href="{{ route('etudiant.edit', $etudiant->id) }}" class="btn btn-outline-info me-2">Éditer</a> 
+                    <a href="{{ route('etudiant.edit', $etudiant->id) }}" class="btn btn-outline-info me-2">Éditer</a> <!-- Utiliser "me-2" pour ajouter un espacement horizontal -->
                     <form method="POST" action="{{ route('etudiant.supprimer', $etudiant->id) }}">
                         @csrf
                         @method('DELETE')
