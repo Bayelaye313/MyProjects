@@ -43,7 +43,7 @@
         </div>
 
         <div class="form-group mb-3">
-            <label for="salaire">Salaire ($):</label>
+            <label for="Salaire">Salaire ($):</label>
             <input type="number" class="form-control" id="salaire" placeholder="Salaire" name="Salaire">
         </div>
 

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nomComplet');
             $table->string('Email');
             $table->string('telephone');
-            $table->decimal('Salaire', 8, 2)->default(0.00);
+            $table->integer('Salaire')->default(0.00);
             $table->timestamps();
         });
     }
