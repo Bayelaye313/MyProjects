@@ -38,8 +38,13 @@ class PostController extends Controller
     }
     public function store(createApiRequest $request){
         try {
-            $post = Post::create($request->all());
-
+            
+            $user_id = auth()->user()->id; // Récupère l'ID de l'utilisateur authentifié
+            $postData = $request->all();
+            $postData['user_id'] = $user_id; // Ajoute l'ID de l'utilisateur au tableau de données
+            //dd($postData);
+            $post = Post::create($postData);          
+          
             return response()->json([
              'status_code'=>200,
              'status_message'=> 'le post à été ajouté',
@@ -47,16 +52,26 @@ class PostController extends Controller
             ]);
      
         } catch (Exception $e) {
-            return response()->json($e);
+            return response()->json(['error' => $e->getMessage()], 500); // Afficher l'erreur
         }
+        
         
     }
     public function update(editPostRequest $request, Post $post){
         try {
-            $post->update([
-                'titre'=> $request->titre,
-                'description' => $request->description
-            ]);
+            $post->titre= $request->titre;
+            $post->description = $request->description;
+            if ($post->user_id===auth()->user()->id) {
+                $post->save();
+            } else {
+                return response()->json([
+                    'status_code'=>422,
+                    'status_message'=> "vous n 'etes pas l'auteur de ce post",
+                    'data'=>$post
+                   ]);
+    
+            }
+            
             return response()->json([
                 'status_code'=>200,
                 'status_message'=> 'le post à été modifié',
@@ -70,26 +85,33 @@ class PostController extends Controller
     }
     public function destroy(Post $post){
         try {
-            if ($post) {
+            if (!$post) {
+                return response()->json([
+                    'status_code' => 404,
+                    'status_message' => "Le post n'existe pas."
+                ]);
+            }
+    
+            if ($post->user_id === auth()->user()->id) {
                 $post->delete();
                 return response()->json([
-                    'status_code'=>200,
-                    'status_message'=> 'le post à été supprimé',
-                    'data'=>$post
-                   ]);    
-            }else{
+                    'status_code' => 200,
+                    'status_message' => 'Le post a été supprimé',
+                    'data' => $post
+                ]);
+            } else {
                 return response()->json([
-                    'status_code'=>422,
-                    'status_message'=> 'enregistrement introuvable',
-                    'data'=>$post
-                   ]);
-    
+                    'status_code' => 422,
+                    'status_message' => "Vous n'êtes pas l'auteur de ce post. Suppression non autorisée."
+                ]);
             }
-            
         } catch (Exception $e) {
-           return response()->json($e);
+            return response()->json([
+                'status_code' => 500,
+                'status_message' => 'Une erreur s\'est produite lors de la suppression du post.',
+                'error' => $e->getMessage()
+            ]);
         }
-
     }
-
+    
 }

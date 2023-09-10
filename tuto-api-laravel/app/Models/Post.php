@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $fillable = ['titre','description'];
+    protected $fillable = ['titre','description', 'user_id'];
     use HasFactory;
 }

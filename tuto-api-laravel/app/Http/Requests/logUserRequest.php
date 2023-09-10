@@ -41,7 +41,7 @@ class logUserRequest extends FormRequest
         return[
             'email.required'=>'email no  fourni',
             'email.email'=>'email no  valide',
-            'email.exists'=>'email n\'existepas',
+            'email.exists'=>'email n\'existe pas',
             'password.required'=>'mot de passe no  fourni'
         ];
     }
