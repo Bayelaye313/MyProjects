@@ -8,17 +8,19 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Address;
 
 class Contact extends Mailable
 {
     use Queueable, SerializesModels;
+    public $contact;
 
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(Array $contact)
     {
-        
+        $this->contact = $contact;
     }
 
     /**
@@ -27,6 +29,7 @@ class Contact extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
+            from: new Address('admin@contact.com', 'John Lennon'),//alter si c un seule exped
             subject: 'Contact',
         );
     }
@@ -37,7 +40,7 @@ class Contact extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'emails.contact',
         );
     }
 

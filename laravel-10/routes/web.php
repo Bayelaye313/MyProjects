@@ -19,3 +19,10 @@ use Illuminate\Support\Facades\Route;
 });*/
 Route::get('contact',[contactController::class, 'create']);
 Route::post('contact',[contactController::class, 'store']);
+Route::get('/test-contact', function () {
+    return new App\Mail\Contact([
+      'nom' => 'Durand',
+      'email' => 'durand@chezlui.com',
+      'message' => 'Je voulais vous dire que votre site est magnifique !'
+      ]);
+});
