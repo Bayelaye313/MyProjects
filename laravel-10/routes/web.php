@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\contactController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\contactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,5 +25,8 @@ Route::get('/test-contact', function () {
       'nom' => 'Durand',
       'email' => 'durand@chezlui.com',
       'message' => 'Je voulais vous dire que votre site est magnifique !'
-      ]);
+      ]);//route test mailing
 });
+
+Route::get('photo', [PhotoController::class, 'create']);
+Route::post('photo', [PhotoController::class, 'store']);
